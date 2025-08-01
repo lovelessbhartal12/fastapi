@@ -23,3 +23,11 @@ def about():
 def view():
     data = load_data()
     return {"patients": data}
+@app.get('/view/{patient_id}')
+def view_patient(patient_id: int):
+    data = load_data()
+    patient = next((p for p in data if p['id'] == patient_id), None)
+    if patient:
+        return {"patient": patient}
+    else:
+        return {"error": "Patient not found"}
